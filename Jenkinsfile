@@ -33,12 +33,21 @@ pipeline {
         stage('Run Sonarqube') {
             environment {
                 scannerHome = tool 'MySonarQube';
+                SONARQUBE_SCANNER = tool 'MySonarQube'
+                SONAR_LOGIN = credentials('sonar-token-id')
+                GIT_USERNAME = credentials('git-username-id')
+                GIT_PASSWORD = credentials('git-password-id')
             }
             steps {
-              withSonarQubeEnv('MySonarQube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-              }
-            }
+                sh '''
+                sed -i "s/__SONAR_LOGIN__/$SONAR_LOGIN/" sonar-project.properties
+                sed -i "s/__GIT_USERNAME__/$GIT_USERNAME/" sonar-project.properties
+                sed -i "s/__GIT_PASSWORD__/$GIT_PASSWORD/" sonar-project.properties
+                '''
+                withSonarQubeEnv('MySonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+
         }
 
         stage('Quality Gate') {
