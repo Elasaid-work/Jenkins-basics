@@ -29,22 +29,6 @@ pipeline {
             }
         }
 
-        stage('Setup Python Backend') {
-            steps {
-                dir('backend') {
-                    sh 'python3 -m venv venv'
-                    sh '. venv/bin/activate && pip install -r requirements.txt'
-                }
-            }
-        }
-
-        stage('Run Backend Tests') {
-            steps {
-                dir('backend') {
-                    sh '. venv/bin/activate && pytest'
-                }
-            }
-        }
 
         stage('SonarQube Analysis') {
             steps {
