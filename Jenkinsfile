@@ -30,12 +30,14 @@ pipeline {
         }
 
 
-        stage('SonarQube Analysis') {
+        stage('Run Sonarqube') {
+            environment {
+                scannerHome = tool 'MySonarQube';
+            }
             steps {
-                withSonarQubeEnv('MySonarQube') {
-                    tool name: 'MySonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    sh 'sonar-scanner'
-}
+              withSonarQubeEnv(credentialsId: 'lil-sonar-credentials', installationName: 'MySonarQube installation') {
+                sh "${scannerHome}/bin/sonar-scanner"
+              }
             }
         }
 
