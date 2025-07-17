@@ -33,10 +33,11 @@ pipeline {
         stage('Run Sonarqube') {
             environment {
                 scannerHome = tool 'MySonarQube';
+                SONAR_TOKEN = credentials('SONAR_TOKEN')
             }
             steps {
               withSonarQubeEnv('MySonarQube') {
-                sh "${scannerHome}/bin/sonar-scanner"
+                sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN"
               }
             }
         }
