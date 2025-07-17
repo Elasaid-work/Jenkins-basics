@@ -33,7 +33,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('MySonarQube') {
-                    tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    tool name: 'MySonarQube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     sh 'sonar-scanner'
 }
             }
