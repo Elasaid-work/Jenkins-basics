@@ -33,7 +33,6 @@ pipeline {
         stage('Run Sonarqube') {
             environment {
                 scannerHome = tool 'MySonarQube';
-                SONARQUBE_SCANNER = tool 'MySonarQube'
                 SONAR_LOGIN = credentials('sonar-token-id')
                 GIT_USERNAME = credentials('git-username-id')
                 GIT_PASSWORD = credentials('git-password-id')
