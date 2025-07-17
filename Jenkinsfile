@@ -11,11 +11,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git 'https://github.com/Elasaid-work/Jenkins-basics.git'
-            }
-        }
+        
 
         stage('Install Frontend') {
             steps {
