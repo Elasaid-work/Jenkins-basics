@@ -47,7 +47,7 @@ pipeline {
                 withSonarQubeEnv('MySonarQube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
-
+            }
         }
 
         stage('Quality Gate') {
